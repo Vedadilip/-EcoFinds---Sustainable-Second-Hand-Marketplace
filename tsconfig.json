@@ -1,29 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
-    "module": "ESNext",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    // --- Code Quality & Modern JavaScript Settings ---
+    "target": "ES2020",
+    "strict": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
-    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "moduleDetection": "force",
-    "allowJs": true,
+    "noEmit": true,
+
+    // --- Fixes for Your Environment ---
+
+    // 1. Tells TypeScript how to understand JSX syntax (e.g., <div>). This is required.
     "jsx": "react-jsx",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
-    "allowImportingTsExtensions": true,
-    "noEmit": true
-  }
+    
+    // 2. Explicitly tells TypeScript to ONLY use libraries available in a web browser.
+    // This fixes the "Cannot find type definition file for 'node'" error.
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
+    
+    // 3. Tells TypeScript to understand the modern "import/export" syntax you are using.
+    "module": "ESNext",
+
+    // 4. Informs TypeScript about the module resolution strategy.
+    "moduleResolution": "bundler"
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx"
+  ]
 }

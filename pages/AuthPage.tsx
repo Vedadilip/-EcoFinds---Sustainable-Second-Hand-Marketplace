@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../hooks/useToast';
 
 export const AuthPage: React.FC = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -10,6 +11,7 @@ export const AuthPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [error, setError] = useState('');
     const { login, signup } = useAuth();
+    const { showToast } = useToast();
     const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -29,6 +31,7 @@ export const AuthPage: React.FC = () => {
         }
 
         if (success) {
+            showToast(isLogin ? `Welcome back!` : 'Account created successfully!');
             navigate('/');
         }
     };

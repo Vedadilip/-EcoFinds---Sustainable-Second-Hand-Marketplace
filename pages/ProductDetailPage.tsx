@@ -1,12 +1,15 @@
+
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useData } from '../hooks/useData';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../hooks/useToast';
 
 export const ProductDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { products, addToCart } = useData();
     const { isAuthenticated } = useAuth();
+    const { showToast } = useToast();
     const navigate = useNavigate();
 
     const product = products.find(p => p.id === id);
@@ -26,7 +29,7 @@ export const ProductDetailPage: React.FC = () => {
             return;
         }
         addToCart(product);
-        // Optionally show a success message/toast
+        showToast('Item added to cart!');
     };
 
     return (

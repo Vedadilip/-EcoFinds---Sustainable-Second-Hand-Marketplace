@@ -1,9 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../hooks/useToast';
 
 export const ProfilePage: React.FC = () => {
     const { user, updateUser } = useAuth();
+    const { showToast } = useToast();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [isEditing, setIsEditing] = useState(false);
@@ -22,6 +24,7 @@ export const ProfilePage: React.FC = () => {
     const handleSave = () => {
         updateUser({ ...user, username, email });
         setIsEditing(false);
+        showToast('Profile updated successfully!');
     };
 
     return (

@@ -34,8 +34,8 @@ export const HomePage: React.FC = () => {
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="bg-primary-light rounded-lg p-8 mb-8 text-center">
-                <h1 className="text-4xl font-bold text-primary-dark mb-2">Find Your Next Treasure</h1>
-                <p className="text-lg text-text-secondary">Buy and sell pre-loved items and contribute to a more sustainable world.</p>
+                <h1 className="text-4xl font-bold text-primary-dark mb-2">Welcome to EcoFinds!</h1>
+                <p className="text-lg text-text-secondary">Your sustainable marketplace for pre-loved treasures.</p>
             </div>
 
             <div className="mb-8 flex flex-col md:flex-row gap-4">

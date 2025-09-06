@@ -1,16 +1,19 @@
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useData } from '../hooks/useData';
+import { useToast } from '../hooks/useToast';
 
 export const CartPage: React.FC = () => {
     const { cart, removeFromCart, checkout } = useData();
+    const { showToast } = useToast();
     const navigate = useNavigate();
     
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     const handleCheckout = () => {
         checkout();
-        alert('Thank you for your purchase!');
+        showToast('Thank you for your purchase!');
         navigate('/purchases');
     };
 

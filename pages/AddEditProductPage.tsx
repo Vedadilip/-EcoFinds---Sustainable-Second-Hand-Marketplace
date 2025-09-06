@@ -1,21 +1,24 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useData } from '../hooks/useData';
-import { Category, Product } from '../types';
+import { useToast } from '../hooks/useToast';
+import { generateDescription } from '../lib/gemini';
+import { Category } from '../types';
 
 export const AddEditProductPage: React.FC = () => {
     const { id } = useParams<{ id?: string }>();
     const navigate = useNavigate();
     const { user } = useAuth();
     const { products, addProduct, updateProduct } = useData();
+    const { showToast } = useToast();
     const isEditMode = Boolean(id);
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState<Category>(Category.OTHER);
+    const [isGenerating, setIsGenerating] = useState(false);
 
     useEffect(() => {
         if (isEditMode) {
@@ -28,6 +31,24 @@ export const AddEditProductPage: React.FC = () => {
             }
         }
     }, [id, isEditMode, products]);
+
+    const handleGenerateDescription = async () => {
+        if (!title) {
+            showToast('Please enter a product title first.', 'error');
+            return;
+        }
+        setIsGenerating(true);
+        try {
+            const generatedDesc = await generateDescription(title, category);
+            setDescription(generatedDesc);
+            showToast('Description generated successfully!');
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'An unknown error occurred.';
+            showToast(message, 'error');
+        } finally {
+            setIsGenerating(false);
+        }
+    };
     
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -74,8 +95,28 @@ export const AddEditProductPage: React.FC = () => {
                         <input type="number" id="price" value={price} onChange={e => setPrice(e.target.value)} required min="0" step="0.01" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" />
                     </div>
                     <div>
-                        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea id="description" value={description} onChange={e => setDescription(e.target.value)} required rows={4} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" />
+                        <div className="flex justify-between items-center mb-1">
+                             <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                             <button 
+                                type="button" 
+                                onClick={handleGenerateDescription}
+                                disabled={!title || isGenerating}
+                                className="text-sm font-medium text-accent hover:text-primary-dark disabled:text-gray-400 disabled:cursor-not-allowed transition-colors flex items-center"
+                            >
+                                {isGenerating ? (
+                                    <>
+                                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        <span>Generating...</span>
+                                    </>
+                                ) : (
+                                    <span>✨ Generate with AI</span>
+                                )}
+                            </button>
+                        </div>
+                        <textarea id="description" value={description} onChange={e => setDescription(e.target.value)} required rows={5} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Image</label>
