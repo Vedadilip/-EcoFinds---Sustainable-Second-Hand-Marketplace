@@ -1,0 +1,81 @@
+import { Product, User, Category } from './types';
+
+export const USERS: User[] = [
+  { id: 'user-1', email: 'john.doe@example.com', username: 'JohnDoe', password: 'password123' },
+  { id: 'user-2', email: 'jane.smith@example.com', username: 'JaneSmith', password: 'password456' },
+];
+
+export const PRODUCTS: Product[] = [
+  {
+    id: 'prod-1',
+    title: 'Vintage Leather Armchair',
+    description: 'A beautiful and comfortable vintage leather armchair. Perfect for a reading nook. Minor wear and tear consistent with age.',
+    price: 18000,
+    category: Category.FURNITURE,
+    imageUrl: 'https://picsum.photos/seed/prod-1/800/600',
+    sellerId: 'user-2',
+  },
+  {
+    id: 'prod-2',
+    title: 'Used MacBook Pro 2019',
+    description: '16-inch MacBook Pro, 16GB RAM, 512GB SSD. In great working condition with a few cosmetic scratches on the shell.',
+    price: 65000,
+    category: Category.ELECTRONICS,
+    imageUrl: 'https://picsum.photos/seed/prod-2/800/600',
+    sellerId: 'user-1',
+  },
+  {
+    id: 'prod-3',
+    title: 'Hardcover Book Collection',
+    description: 'A set of 10 classic literature novels in hardcover. Includes titles from Dickens, Austen, and Tolstoy.',
+    price: 2500,
+    category: Category.BOOKS,
+    imageUrl: 'https://picsum.photos/seed/prod-3/800/600',
+    sellerId: 'user-2',
+  },
+  {
+    id: 'prod-4',
+    title: 'Men\'s Denim Jacket',
+    description: 'A stylish and durable denim jacket, size Large. Barely worn, in excellent condition.',
+    price: 1500,
+    category: Category.CLOTHING,
+    imageUrl: 'https://picsum.photos/seed/prod-4/800/600',
+    sellerId: 'user-1',
+  },
+  {
+    id: 'prod-5',
+    title: 'Antique Wooden Desk',
+    description: 'Solid oak desk with multiple drawers. A timeless piece that adds character to any home office.',
+    price: 22000,
+    category: Category.FURNITURE,
+    imageUrl: 'https://picsum.photos/seed/prod-5/800/600',
+    sellerId: 'user-1',
+  },
+    {
+    id: 'prod-6',
+    title: 'KitchenAid Stand Mixer',
+    description: 'Classic red stand mixer with bowl and three attachments. Works perfectly. A must-have for any baker.',
+    price: 8000,
+    category: Category.HOME_GOODS,
+    imageUrl: 'https://picsum.photos/seed/prod-6/800/600',
+    sellerId: 'user-2',
+  },
+  {
+    id: 'prod-7',
+    title: 'Sony WH-1000XM4 Headphones',
+    description: 'Industry-leading noise-canceling headphones. Comes with case and all original accessories.',
+    price: 12000,
+    category: Category.ELECTRONICS,
+    imageUrl: 'https://picsum.photos/seed/prod-7/800/600',
+    sellerId: 'user-1',
+  },
+  {
+    id: 'prod-8',
+    title: 'Lego Star Wars Set',
+    description: 'Complete Millennium Falcon Lego set (75192). Assembled once, includes all minifigures and instructions.',
+    price: 40000,
+    category: Category.TOYS,
+    imageUrl: 'https://picsum.photos/seed/prod-8/800/600',
+    sellerId: 'user-2',
+  },
+];
